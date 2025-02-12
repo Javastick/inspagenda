@@ -8,27 +8,36 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function input(Request $request)
+    public function __construct()
     {
-        // dd($request->all());
-        $request->validate([
-            'sender' => 'required',
-            'masuk' => 'required',
-            'hari' => 'required',
-            'kegiatan' => 'required',
-            'tempat' => 'required',
-            'keterangan' => 'required',
-        ]);
-//         $tanggal_masuk = Carbon::parse($request->hari)->format('Y-m-d H:i:s');
-// dd($tanggal_masuk);
-        InviteMail::create([
-            'sender' => $request->sender,
-            'masuk' => $request->masuk,
-            'hari' => $request->hari,
-            'kegiatan' => $request->kegiatan,
-            'tempat' => $request->tempat,
-            'keterangan' => $request->keterangan,
-        ]);
-        return redirect()->route('admin');
+        $this->middleware('auth');
     }
+    public function index()
+    {
+        $surat = InviteMail::latest()->get();
+        return view('admin.index', compact('surat'));
+    }
+
+    public function store(Request $request)
+{
+    $validated = $request->validate([
+        'sender' => 'required|string|max:255',
+        'masuk' => 'required|date',
+        'hari' => 'required|date',
+        'kegiatan' => 'required|string|max:255',
+        'tempat' => 'required|string|max:255',
+        'keterangan' => 'nullable|string'
+    ]);
+
+    InviteMail::create([
+        'sender' => $request->sender,
+        'masuk' => $request->masuk,
+        'hari' => $request->hari,
+        'kegiatan' => $request->kegiatan,
+        'tempat' => $request->tempat,
+        'keterangan' => $request->keterangan
+    ]);
+
+    return redirect()->route('admin')->with('success', 'Surat berhasil ditambahkan!');
+}
 }

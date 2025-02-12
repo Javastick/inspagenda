@@ -13,7 +13,10 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/event/{id}', [HomeController::class, 'event'])->name('event.detail');
+Route::get('/events/{id}', [HomeController::class, 'show'])->name('events.show');
 Route::get('/daily-schedule/{date}', [HomeController::class, 'daily'])->name('daily.schedule');
     
-Route::get('/admin', [App\Http\Controllers\HomeController::class, 'admin'])->name('admin');
-Route::post('/admin/input', [AdminController::class, 'input'])->name('input');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+    Route::post('/store', [AdminController::class, 'store'])->name('admin.store');
+});

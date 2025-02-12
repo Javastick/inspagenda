@@ -26,7 +26,7 @@ class InviteMail extends Model
                     ->orderBy('hari', 'asc')
                     ->get()
                     ->groupBy(function ($event) {
-                        return Carbon::parse($event->hari)->locale('id')->dayName; // Grup berdasarkan tanggal
+                        return Carbon::parse($event->hari)->locale('id')->dayName;
                     });
     }
     public function getTodayEvents()
@@ -38,6 +38,11 @@ class InviteMail extends Model
         return $this->whereDate('hari', '>', now()->toDateString())->paginate(5);
     }
 
+    public function getDay(){
+        $day = Carbon::parse($this->hari)->locale('id')->dayName;
+        $date = Carbon::parse($this->hari)->format('d M Y');
+        return "{$day}, {$date}";
+    }
     public function getHourOnly(): Attribute
     {
         return Attribute::get(fn () => Carbon::parse($this->hari)->format('H:i'));

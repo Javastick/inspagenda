@@ -68,7 +68,10 @@
 </head>
 <body>
     <div class="welcome-card">
-        <div class="welcome-title">Inspektorat Box</div>
+        <div class="welcome-title mb-0">
+            <img src="logo/logobgt.jpg" alt="" width="118" class="rounded">
+        </div>
+        <p class="text-center mt-0">Inspagenda adalah aplikasi manajemen agenda untuk Inspektorat Daerah Kabupaten Brebes yang mempermudah pencatatan, pemantauan, dan pengelolaan jadwal undangan secara efisien.</p>
         <div class="row">
             <!-- Lihat Schedule -->
             <div class="col-md-6">
@@ -87,9 +90,9 @@
                     <div class="option-icon">📝</div>
                     <div class="option-title">Input Surat</div>
                     <div class="option-description">
-                        Input dan kirim surat undangan.
+                        Input surat undangan masuk.
                     </div>
-                    <a href="/input-surat" class="btn btn-success btn-option">Input Surat</a>
+                    <a href="{{ route('admin') }}" class="btn btn-success btn-option">Input Surat</a>
                 </div>
             </div>
         </div>

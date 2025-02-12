@@ -9,85 +9,45 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    private function formatEventForCalendar($event)
-    {
-        // Gabungkan tanggal dan waktu
-        $startDateTime = Carbon::parse($event->hari)->setTimezone('Asia/Jakarta')->toIso8601String();
-
-        return [
-            'title' => $event->judul ?? 'Undangan', // Pastikan ada field judul
-            'start' => $startDateTime,
-            'color' => '#ff0000',
-            'extendedProps' => [
-                'tempat' => $event->tempat // Sesuaikan dengan field tempat
-            ]
-        ];
-    }
-
-    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        $events = InviteMail::all();
-        // $days = InviteMail::select('hari')->get();
+        $calendarEvents = InviteMail::all()->map(function ($event) {
+            return [
+                'title' => $event->kegiatan,
+                'start' => $event->hari, // Pastikan format Y-m-d
+                'url' => route('events.show', $event->id),
+                'extendedProps' => [
+                    'tempat' => $event->tempat,
+                    'keterangan' => $event->keterangan
+                ]
+            ];
+        });
 
-        // Ubah format agar sesuai dengan FullCalendar
-        // $formattedEvents = $days->map(function ($event) {
-        //     return $this->formatEventForCalendar($event);
-        // });
-
-
-        $days = InviteMail::select('hari')->get();
-
-    // Ubah format agar sesuai dengan FullCalendar
-    $formattedEvents = $days->map(function ($event) {
-        return [
-            'title' => 'Undangan',
-            'start' => $event->hari, // Format: YYYY-MM-DD
-            'color' => 'red', // Warna merah untuk tanggal yang ditandai
-        ];
-    });
-
-        // Kirim data ke view
-        return view('home', [
-            'days' => $formattedEvents,
-            'events' => $events,
-            'upcomings' => (new InviteMail)->getPerdayEvents(),
+        return view('home.index', [
+            'events' => $calendarEvents, // Untuk kalender
+            'upcomings' => (new InviteMail)->getPerdayEvents()->take(2),
             'todays' => (new InviteMail)->getTodayEvents()
         ]);
     }
 
-    
     public function daily($date)
-{
-    // Validasi format tanggal
-    try {
-        $parsedDate = Carbon::parse($date);
-    } catch (\Exception $e) {
-        abort(404);
+    {
+        // Validasi format tanggal
+        $events = InviteMail::whereDate('hari', $date)->get();
+        
+        return view('home.daily', [
+            'date' => Carbon::parse($date)->locale('id'),
+            'events' => $events
+        ]);
     }
 
-    // Ambil jadwal untuk tanggal tersebut
-    $schedules = InviteMail::whereDate('hari', $parsedDate)->orderBy('hari', 'asc')->get();
-
-    return view('daily-schedule', [
-        'date' => $parsedDate,
-        'schedules' => $schedules
-    ]);
-}
-    public function admin(){
-        return view('admin');
+    public function show($id)
+    {
+        $event = InviteMail::findOrFail($id);
+        return view('home.show', compact('event'));
     }
 }
