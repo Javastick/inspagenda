@@ -104,12 +104,35 @@
                     return { html: '' };
                 },
                 headerToolbar: {
-                    left: 'prev,next today',
+                    left: 'prev',
                     center: 'title',
+                    right: 'today,next'
                 }
             });
             calendar.render();
         }
+        // Fungsi untuk memperbarui bagian jadwal secara real time
+    function updateSchedules() {
+        fetch("{{ route('home.update-schedule') }}")
+            .then(response => response.text())
+            .then(html => {
+                const container = document.getElementById('schedule-container');
+                if (container) {
+                    container.innerHTML = html;
+                }
+            })
+            .catch(error => console.error('Error updating schedules:', error));
+    }
+
+    // Lakukan polling untuk memperbarui jadwal setiap 10 detik
+    setInterval(updateSchedules, 10000);
+
+    // Perbarui kalender FullCalendar setiap 10 detik (jika menggunakan sumber events dinamis)
+    if (calendar) {
+        setInterval(() => {
+            calendar.refetchEvents();
+        }, 10000);
+    }
     });
 </script>
 @endpush

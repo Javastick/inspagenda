@@ -40,4 +40,34 @@ class AdminController extends Controller
 
     return redirect()->route('admin')->with('success', 'Surat berhasil ditambahkan!');
 }
+public function edit($id)
+{
+    $surat = InviteMail::findOrFail($id);
+    return view('admin.edit', compact('surat'));
+}
+
+public function update(Request $request, $id)
+{
+    $validated = $request->validate([
+        'masuk' => 'required',
+        'hari' => 'required',
+        'sender' => 'required|string|max:255',
+        'kegiatan' => 'required|string|max:255',
+        'tempat' => 'required|string|max:255',
+        'keterangan' => 'nullable|string',
+    ]);
+
+    $surat = InviteMail::findOrFail($id);
+    $surat->update($validated);
+
+    return redirect()->route('admin')->with('success', 'Surat berhasil diperbarui!');
+}
+
+public function destroy($id)
+{
+    $surat = InviteMail::findOrFail($id);
+    $surat->delete();
+
+    return redirect()->route('admin')->with('success', 'Surat berhasil dihapus!');
+}
 }

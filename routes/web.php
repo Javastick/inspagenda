@@ -19,4 +19,7 @@ Route::get('/daily-schedule/{date}', [HomeController::class, 'daily'])->name('da
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
     Route::post('/store', [AdminController::class, 'store'])->name('admin.store');
+    Route::get('/{id}/edit', [AdminController::class, 'edit'])->name('admin.edit');
+    Route::put('/{id}', [AdminController::class, 'update'])->name('admin.update');
+    Route::delete('/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
 });
