@@ -26,7 +26,7 @@ class InviteMail extends Model
                     ->orderBy('hari', 'asc')
                     ->get()
                     ->groupBy(function ($event) {
-                        return Carbon::parse($event->hari)->locale('id')->dayName;
+                        return Carbon::parse($event->hari)->locale('id')->translatedFormat('l, d F Y');
                     });
     }
     public function getTodayEvents()

@@ -88,36 +88,33 @@
                                 <table class="table table-striped mb-0" id="suratTable">
                                     <thead>
                                         <tr>
-                                            <th>No. Surat</th>
+                                            <th>No</th>
                                             <th>Tanggal Kegiatan</th>
-                                            <th>Tanggal Masuk</th>
+                                            <th>Pengirim</th>
                                             <th>Kegiatan</th>
                                             <th>Tempat</th>
-                                            <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($surat as $item)
                                             <tr>
-                                                <td>{{ str_pad($item->id, 4, '0', STR_PAD_LEFT) }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($item->hari)->translatedFormat('d M Y H:i') }}
+                                                <!-- Nomor urut terbalik (1 di bawah) -->
+                                                <td>
+                                                    @if($surat instanceof \Illuminate\Pagination\LengthAwarePaginator)
+                                                        {{ ($surat->currentPage() - 1) * $surat->perPage() + $surat->count() - $loop->iteration + 1 }}
+                                                    @else
+                                                        {{ $surat->count() - $loop->iteration + 1 }}
+                                                    @endif
                                                 </td>
-                                                <td>{{ \Carbon\Carbon::parse($item->masuk)->translatedFormat('d M Y H:i') }}
-                                                </td>
+                                                <td>{{ \Carbon\Carbon::parse($item->hari)->translatedFormat('d M Y H:i') }}</td>
+                                                <td>{{ $item->sender }}</td>
                                                 <td>{{ $item->kegiatan }}</td>
                                                 <td>{{ $item->tempat }}</td>
-                                                <td>
-                                                    <span
-                                                        class="badge bg-{{ $item->status == 'terkirim' ? 'success' : 'warning' }}">
-                                                        {{ ucfirst($item->status) }}
-                                                    </span>
-                                                </td>
                                                 <td>
                                                     <a href="{{ route('admin.edit', $item->id) }}" class="btn btn-sm btn-outline-primary">
                                                         Edit
                                                     </a>
-                                                    
                                                     <form action="{{ route('admin.destroy', $item->id) }}" method="POST" class="d-inline">
                                                         @csrf
                                                         @method('DELETE')
@@ -237,13 +234,7 @@
                 dateFormat: "Y-m-d H:i",
                 time_24hr: true,
                 minDate: "today",
-                minuteIncrement: 5,
-                onValueUpdate: function(selectedDates) {
-                    const now = new Date();
-                    if (selectedDates[0].getDate() === now.getDate()) {
-                        this.set('minTime', now.getHours() + ":" + now.getMinutes());
-                    }
-                },
+                minuteIncrement: 10,
                 locale: 'id'
             });
 
