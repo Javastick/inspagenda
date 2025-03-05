@@ -74,59 +74,103 @@
                     <div class="card shadow-sm">
                         <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
                             <span>Daftar Surat Undangan</span>
-                            <div class="w-50">
-                                <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" id="searchInput" placeholder="Cari surat...">
-                                    <button class="btn btn-outline-light" type="button">
-                                        <i class="fas fa-search"></i>
-                                    </button>
+                            <div class="d-flex w-50 justify-content-end">
+                                @if (request()->has('show_all'))
+                                <div>
+                                    <a href="{{ route('admin') }}" class="btn btn-sm btn-outline-light">
+                                        Semua
+                                    </a>
+                                </div>
+                            @else
+                                <div>
+                                    <a href="{{ request()->fullUrlWithQuery(['show_all' => 1]) }}"
+                                        class="btn btn-sm btn-outline-light">
+                                        Aktif
+                                    </a>
+                                </div>
+                            @endif
+                                <div class="w-75 d-flex justify-end ms-3">
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" class="form-control" id="searchInput" placeholder="Cari surat...">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table table-striped mb-0" id="suratTable">
-                                    <thead>
+                                    <thead class="table-light">
                                         <tr>
-                                            <th>No</th>
+                                            <th width="50">No</th>
                                             <th>Tanggal Kegiatan</th>
                                             <th>Pengirim</th>
                                             <th>Kegiatan</th>
                                             <th>Tempat</th>
-                                            <th>Aksi</th>
+                                            <th width="150">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $counter = 0;
+                                        @endphp
+
                                         @foreach ($surat as $item)
+                                            @php
+                                                // Skip surat terlewat jika tidak dalam mode arsip
+                                                $status = $item->getStatus();
+                                                if (!request()->has('show_all') && $status === 'terlewat') {
+                                                    continue;
+                                                }
+                                                $counter++;
+                                            @endphp
+
                                             <tr>
-                                                <!-- Nomor urut terbalik (1 di bawah) -->
+                                                {{-- Nomor Urut --}}
                                                 <td>
-                                                    @if($surat instanceof \Illuminate\Pagination\LengthAwarePaginator)
-                                                        {{ ($surat->currentPage() - 1) * $surat->perPage() + $surat->count() - $loop->iteration + 1 }}
+                                                    @if ($surat instanceof \Illuminate\Pagination\LengthAwarePaginator)
+                                                        {{ ($surat->currentPage() - 1) * $surat->perPage() + $counter }}
                                                     @else
-                                                        {{ $surat->count() - $loop->iteration + 1 }}
+                                                        {{ $counter }}
                                                     @endif
                                                 </td>
-                                                <td>{{ \Carbon\Carbon::parse($item->hari)->translatedFormat('d M Y H:i') }}</td>
+
+                                                {{-- Tanggal dengan warna status --}}
+                                                <td class="text-{{ $item->getStatusColor() }}">
+                                                    <i class="bi bi-calendar-event me-1"></i>
+                                                    {{ \Carbon\Carbon::parse($item->hari)->translatedFormat('d M Y H:i') }}
+                                                </td>
+
                                                 <td>{{ $item->sender }}</td>
                                                 <td>{{ $item->kegiatan }}</td>
                                                 <td>{{ $item->tempat }}</td>
+
+                                                {{-- Tombol Aksi --}}
                                                 <td>
-                                                    <a href="{{ route('admin.edit', $item->id) }}" class="btn btn-sm btn-outline-primary">
-                                                        Edit
-                                                    </a>
-                                                    <form action="{{ route('admin.destroy', $item->id) }}" method="POST" class="d-inline">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" 
+                                                    <div class="d-flex gap-2">
+                                                        <a href="{{ route('admin.edit', $item->id) }}"
+                                                            class="btn btn-sm btn-outline-primary">
+                                                            Edit
+                                                        </a>
+
+                                                        <form action="{{ route('admin.destroy', $item->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="button"
                                                                 class="btn btn-sm btn-outline-danger delete-btn"
                                                                 data-id="{{ $item->id }}">
-                                                            Hapus
-                                                        </button>
-                                                    </form>
+                                                                Hapus
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach
+                                        @if ($counter === 0)
+                                            <div class="alert alert-info mt-3">
+                                                Tidak ada surat yang ditemkan
+                                            </div>
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
@@ -264,27 +308,26 @@
             });
         });
         // Konfirmasi hapus
-    document.querySelectorAll('.delete-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const form = this.closest('form');
-            
-            Swal.fire({
-                title: 'Yakin ingin menghapus?',
-                text: "Data yang dihapus tidak dapat dikembalikan!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Ya, Hapus!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit();
-                }
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const form = this.closest('form');
+
+                Swal.fire({
+                    title: 'Yakin ingin menghapus?',
+                    text: "Data yang dihapus tidak dapat dikembalikan!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
             });
         });
-    });
     </script>
-
 @endsection

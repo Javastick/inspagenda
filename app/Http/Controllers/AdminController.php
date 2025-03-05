@@ -12,11 +12,20 @@ class AdminController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index()
-    {
-        $surat = InviteMail::latest()->get();
-        return view('admin.index', compact('surat'));
+    // AdminController.php
+public function index(Request $request)
+{
+    $query = InviteMail::query();
+    
+    // Filter default (hanya kini & berikutnya)
+    if(!$request->has('show_all')) {
+        $query->whereDate('hari', '>=', now()->toDateString());
     }
+
+    $surat = $query->orderBy('hari', 'desc')->get();
+    
+    return view('admin.index', compact('surat'));
+}
 
     public function store(Request $request)
 {
@@ -49,7 +58,6 @@ public function edit($id)
 public function update(Request $request, $id)
 {
     $validated = $request->validate([
-        'masuk' => 'required',
         'hari' => 'required',
         'sender' => 'required|string|max:255',
         'kegiatan' => 'required|string|max:255',

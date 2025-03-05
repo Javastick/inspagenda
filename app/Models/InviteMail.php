@@ -19,7 +19,28 @@ class InviteMail extends Model
         'tempat',
         'keterangan',
     ];
+    public function getStatus()
+    {
+        $tanggalHari = Carbon::parse($this->hari)->format('Y-m-d');
+        $tanggalSekarang = now()->format('Y-m-d');
 
+        if ($tanggalHari == $tanggalSekarang) {
+            return 'kini';
+        } 
+        
+        return $tanggalHari > $tanggalSekarang ? 'berikutnya' : 'terlewat';
+    }
+    public function getStatusColor()
+    {
+        $status = $this->getStatus();
+        if ($status == 'kini') {
+            return 'warning';
+        } elseif ($status == 'berikutnya') {
+            return 'info';
+        } else {
+            return 'secondary';
+        }
+    }
     public function getPerdayEvents()
     {
         return $this->whereDate('hari', '>', now()->toDateString())

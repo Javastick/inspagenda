@@ -17,20 +17,6 @@
                     @method('PUT')
 
                     <div class="row g-4">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label fw-bold text-dark mb-2">
-                                    <i class="fas fa-calendar-plus me-2"></i>Tanggal Masuk
-                                </label>
-                                <input type="datetime-local" 
-                                       class="form-control @error('masuk') is-invalid @enderror"
-                                       name="masuk" 
-                                       value="{{ old('masuk', $surat->masuk ? str_replace(' ', 'T', $surat->masuk) : '') }}">
-                                @error('masuk')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
 
                         <!-- Tanggal Kegiatan -->
                         <div class="col-md-6">
@@ -82,7 +68,7 @@
                         </div>
 
                         <!-- Tempat -->
-                        <div class="col-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label fw-bold text-dark mb-2">
                                     <i class="fas fa-map-marker-alt me-2"></i>Lokasi Kegiatan
