@@ -22,7 +22,7 @@ public function index(Request $request)
         $query->whereDate('hari', '>=', now()->toDateString());
     }
 
-    $surat = $query->orderBy('hari', 'desc')->get();
+    $surat = $query->orderBy('hari', 'asc')->get();
     
     return view('admin.index', compact('surat'));
 }

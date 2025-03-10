@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
+        <!-- Favicon untuk browser tab -->
+        <link rel="icon" type="image/png" href="{{ asset('logo/logo192.png') }}" sizes="192x192">
+        <link rel="shortcut icon" href="{{ asset('logo/logo192.png') }}" type="image/png">
+    
+        <!-- Apple Touch Icon (iOS) -->
+        <link rel="apple-touch-icon" href="{{ asset('logo/logo192.png') }}">
+    
+        <!-- Meta untuk iOS -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {

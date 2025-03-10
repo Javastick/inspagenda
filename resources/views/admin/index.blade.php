@@ -106,14 +106,14 @@
                                             <th>Pengirim</th>
                                             <th>Kegiatan</th>
                                             <th>Tempat</th>
-                                            <th width="150">Aksi</th>
+                                            <th width="170">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @php
                                             $counter = 0;
                                         @endphp
-
+                        
                                         @foreach ($surat as $item)
                                             @php
                                                 // Skip surat terlewat jika tidak dalam mode arsip
@@ -123,7 +123,7 @@
                                                 }
                                                 $counter++;
                                             @endphp
-
+                        
                                             <tr>
                                                 {{-- Nomor Urut --}}
                                                 <td>
@@ -133,33 +133,44 @@
                                                         {{ $counter }}
                                                     @endif
                                                 </td>
-
+                        
                                                 {{-- Tanggal dengan warna status --}}
                                                 <td class="text-{{ $item->getStatusColor() }}">
-                                                    <i class="bi bi-calendar-event me-1"></i>
+                                                    <i class="fas fa-calendar-alt me-1"></i>
                                                     {{ \Carbon\Carbon::parse($item->hari)->translatedFormat('d M Y H:i') }}
                                                 </td>
-
+                        
                                                 <td>{{ $item->sender }}</td>
                                                 <td>{{ $item->kegiatan }}</td>
                                                 <td>{{ $item->tempat }}</td>
-
+                        
                                                 {{-- Tombol Aksi --}}
                                                 <td>
                                                     <div class="d-flex gap-2">
-                                                        <a href="{{ route('admin.edit', $item->id) }}"
-                                                            class="btn btn-sm btn-outline-primary">
-                                                            Edit
+                                                        <!-- Tombol Lihat Detail -->
+                                                        <a href="{{ route('events.show', $item->id) }}" 
+                                                           class="btn btn-sm btn-outline-info"
+                                                           title="Lihat Detail">
+                                                            <i class="fas fa-eye"></i>
                                                         </a>
-
+                        
+                                                        <!-- Tombol Edit -->
+                                                        <a href="{{ route('admin.edit', $item->id) }}"
+                                                           class="btn btn-sm btn-outline-primary"
+                                                           title="Edit">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                        
+                                                        <!-- Tombol Hapus -->
                                                         <form action="{{ route('admin.destroy', $item->id) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="button"
                                                                 class="btn btn-sm btn-outline-danger delete-btn"
-                                                                data-id="{{ $item->id }}">
-                                                                Hapus
+                                                                data-id="{{ $item->id }}"
+                                                                title="Hapus">
+                                                                <i class="fas fa-trash-alt"></i>
                                                             </button>
                                                         </form>
                                                     </div>
@@ -168,7 +179,7 @@
                                         @endforeach
                                         @if ($counter === 0)
                                             <div class="alert alert-info mt-3">
-                                                Tidak ada surat yang ditemkan
+                                                Tidak ada surat yang ditemukan
                                             </div>
                                         @endif
                                     </tbody>

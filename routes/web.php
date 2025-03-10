@@ -12,7 +12,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/event/{id}', [HomeController::class, 'event'])->name('event.detail');
+// Route::get('/event/{id}', [HomeController::class, 'event'])->name('event.detail');
 Route::get('/events/{id}', [HomeController::class, 'show'])->name('events.show');
 Route::get('/daily-schedule/{date}', [HomeController::class, 'daily'])->name('daily.schedule');
     

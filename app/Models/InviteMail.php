@@ -34,11 +34,21 @@ class InviteMail extends Model
     {
         $status = $this->getStatus();
         if ($status == 'kini') {
-            return 'warning';
+            return 'primary';
         } elseif ($status == 'berikutnya') {
-            return 'info';
+            return 'warning';
         } else {
             return 'secondary';
+        }
+    }
+    public function getStatusHex(){
+        $status = $this->getStatus();
+        if ($status == 'kini') {
+            return '#FFC107';
+        } elseif ($status == 'berikutnya') {
+            return '#17A2B8';
+        } else {
+            return '#6C757D';
         }
     }
     public function getPerdayEvents()

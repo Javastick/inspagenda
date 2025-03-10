@@ -20,6 +20,7 @@ class HomeController extends Controller
                 'title' => $event->kegiatan,
                 'start' => $event->hari, // Pastikan format Y-m-d
                 'url' => route('events.show', $event->id),
+                'backgroundColor' => $event->getStatusColor(),
                 'extendedProps' => [
                     'tempat' => $event->tempat,
                     'keterangan' => $event->keterangan

@@ -42,7 +42,7 @@
             <div class="card-body p-0">
                 @foreach($upcomings as $date => $schedules)
                 <div class="day-group">
-                    <div class="date-header bg-success bg-opacity-10 p-3 border-bottom">
+                    <div class="date-header bg-opacity-10 p-3 border-bottom">
                         <h6 class="mb-0 fw-bold text-success">
                             {{ $date }}
                         </h6>
@@ -105,7 +105,7 @@
                 eventDidMount: function(info) {
                     // Custom rendering untuk event
                     info.el.innerHTML = `
-        <div class="fc-event-dot" 
+        <div class="fc-event-dot bg-${ info.event.backgroundColor }"
              data-bs-toggle="tooltip" 
              title="${info.event.title} - ${info.event.extendedProps.tempat}"
              onclick="window.location.href='${info.event.url}'">

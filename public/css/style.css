@@ -105,7 +105,7 @@ body {
 .fc-event-dot {
   width: 8px;
   height: 8px;
-  background-color: #df2225;
+  /* background-color: #df2225; */
   border-radius: 50%;
   position: relative !important; /* Ubah dari absolute ke relative */
   top: auto !important;

@@ -7,7 +7,7 @@
             <div class="welcome-card login-card">
                 <!-- Logo dan Judul -->
                 <div class="text-center mb-4">
-                    <img src="logo/logobgt.jpg" alt="Logo Inspektorat" width="100" class="rounded mb-3">
+                    <img src="logo/logo512.png" alt="Logo Inspektorat" width="75" class="rounded mb-3">
                     <h3 class="text-primary">Masuk ke Inspagenda</h3>
                     <p class="text-muted">Silakan masuk menggunakan akun Anda</p>
                 </div>
@@ -26,7 +26,7 @@
                                required 
                                autocomplete="email" 
                                autofocus
-                               placeholder="contoh@brebeskab.go.id">
+                               placeholder="contoh@gmail.com">
                         
                         @error('email')
                             <span class="invalid-feedback" role="alert">
@@ -38,19 +38,32 @@
                     <!-- Password -->
                     <div class="mb-4">
                         <label for="password" class="form-label">Password</label>
-                        <input id="password" type="password" 
-                               class="form-control form-control-lg @error('password') is-invalid @enderror" 
-                               name="password" 
-                               required 
-                               autocomplete="current-password"
-                               placeholder="••••••••">
-                        
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                        <div class="position-relative">
+                            <input id="password" 
+                                   type="password" 
+                                   class="form-control form-control-lg pe-5" 
+                                   name="password" 
+                                   required 
+                                   placeholder="••••••••">
+                            
+                            <!-- Tombol Toggle Password -->
+                            <button type="button" 
+                                    class="btn btn-link text-secondary p-0"
+                                    style="
+                                        position: absolute;
+                                        right: 12px;
+                                        top: 50%;
+                                        transform: translateY(-50%);
+                                        z-index: 5;
+                                        width: 24px;
+                                        height: 24px;
+                                    "
+                                    onclick="togglePasswordVisibility()">
+                                <i class="fas fa-eye" id="passwordToggleIcon" style="font-size: 1.2rem"></i>
+                            </button>
+                        </div>
                     </div>
+                    
 
                     <!-- Remember Me & Lupa Password -->
                     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -130,4 +143,21 @@
         }
     }
 </style>
+
+<script>
+    function togglePasswordVisibility() {
+        const passwordInput = document.getElementById('password');
+        const icon = document.getElementById('passwordToggleIcon');
+        
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
+</script>
 @endsection
