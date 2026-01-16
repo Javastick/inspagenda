@@ -9,32 +9,32 @@
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('input') }}">
-                        <fieldset  >
+                        <fieldset>
                           <legend>Surat</legend>
                           @csrf
                           <div class="mb-3">
-                            <label for=" TextInput" class="form-label">Pengirim</label>
-                            <input type="text" id=" TextInput" class="form-control"  placeholder="" name="sender">
+                            <label for="sender" class="form-label">Pengirim</label>
+                            <input type="text" id="sender" class="form-control" name="sender">
                           </div>
                           <div class="mb-3">
-                            <label for=" TextInput" class="form-label">Tanggal Masuk</label>
-                            <input type="date" id=" TextInput" class="form-control"  placeholder="" name="masuk">
+                            <label for="masuk" class="form-label">Tanggal Masuk</label>
+                            <input type="date" id="masuk" class="form-control" name="masuk">
                           </div>
                           <div class="mb-3">
-                            <label class="form-label">Tanggal Acara</label>
-                            <input type="datetime-local" id=" TextInput" class="form-control"  placeholder="" name="hari">
+                            <label for="hari" class="form-label">Tanggal Acara</label>
+                            <input type="datetime-local" id="hari" class="form-control" name="hari">
                           </div>
                           <div class="mb-3">
-                            <label for=" TextInput" class="form-label" name="kegiatan">Kegiatan</label>
-                            <input type="text" id=" TextInput" class="form-control"  placeholder="" name="kegiatan">
+                            <label for="kegiatan" class="form-label">Kegiatan</label>
+                            <input type="text" id="kegiatan" class="form-control" name="kegiatan">
                           </div>
                           <div class="mb-3">
-                            <label for=" TextInput" class="form-label" name="tempat">Tempat</label>
-                            <input type="text" id=" TextInput" class="form-control"  placeholder="" name="tempat">
+                            <label for="tempat" class="form-label">Tempat</label>
+                            <input type="text" id="tempat" class="form-control" name="tempat">
                           </div>
                           <div class="mb-3">
-                            <label for=" TextInput" class="form-label" name="keterangan">Keterangan</label>
-                            <input type="text" id=" TextInput" class="form-control"  placeholder="" name="keterangan">
+                            <label for="keterangan" class="form-label">Keterangan</label>
+                            <input type="text" id="keterangan" class="form-control" name="keterangan">
                           </div>
                           <button type="submit" class="btn btn-primary">Submit</button>
                         </fieldset>

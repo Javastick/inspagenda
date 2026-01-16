@@ -74,90 +74,16 @@
                             </label>
                         </div>
                         
-                        @if (Route::has('password.request'))
-                            <a class="text-primary" href="{{ route('password.request') }}">
-                                Lupa Password?
-                            </a>
-                        @endif
                     </div>
 
                     <!-- Tombol Login -->
                     <button type="submit" class="btn btn-primary btn-option w-100 py-2">
                         <i class="fas fa-sign-in-alt me-2"></i> Masuk
-                    </button>
-
-                    <!-- Registrasi (opsional) -->
-                    <div class="text-center mt-4">
-                        <p class="text-muted">Belum punya akun? 
-                            <a href="{{ route('register') }}" class="text-primary">Daftar disini</a>
-                        </p>
-                    </div>
+                    </button>   
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<style>
-    .login-card {
-        padding: 2rem;
-        margin: 2rem 0;
-        background: rgba(255, 255, 255, 0.95);
-    }
-
-    .form-control-lg {
-        padding: 1rem;
-        border-radius: 10px;
-        border: 2px solid #e9ecef;
-        transition: all 0.3s ease;
-    }
-
-    .form-control-lg:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    }
-
-    .form-check-input:checked {
-        background-color: #667eea;
-        border-color: #667eea;
-    }
-
-    .btn-option {
-        transition: all 0.3s ease;
-        font-weight: 500;
-    }
-
-    .btn-option:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
-    }
-
-    @media (max-width: 576px) {
-        .login-card {
-            margin: 1rem;
-            padding: 1.5rem;
-        }
-        
-        .form-control-lg {
-            font-size: 0.9rem;
-        }
-    }
-</style>
-
-<script>
-    function togglePasswordVisibility() {
-        const passwordInput = document.getElementById('password');
-        const icon = document.getElementById('passwordToggleIcon');
-        
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            icon.classList.remove('fa-eye');
-            icon.classList.add('fa-eye-slash');
-        } else {
-            passwordInput.type = 'password';
-            icon.classList.remove('fa-eye-slash');
-            icon.classList.add('fa-eye');
-        }
-    }
-</script>
 @endsection

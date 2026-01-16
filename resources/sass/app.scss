@@ -6,3 +6,9 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+// Custom Styles
+@import 'custom';
+@import 'welcome';
+@import 'auth';
+@import 'pages/home';

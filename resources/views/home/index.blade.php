@@ -83,51 +83,11 @@
 
 @push('scripts')
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Date formatting
-        const options = {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        };
-        document.getElementById('today').textContent = new Date().toLocaleDateString('id-ID', options);
-
-        const calendarEl = document.getElementById('calendar');
-        if (calendarEl) {
-            const calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                locale: 'id',
-                events: {!! json_encode($events) !!},
-                dateClick: function(info) {
-                    window.location.href = `{{ route('daily.schedule', '') }}/${info.dateStr}`;
-                },
-                eventDidMount: function(info) {
-                    // Custom rendering untuk event
-                    info.el.innerHTML = `
-        <div class="fc-event-dot bg-${ info.event.backgroundColor }"
-             data-bs-toggle="tooltip" 
-             title="${info.event.title} - ${info.event.extendedProps.tempat}"
-             onclick="window.location.href='${info.event.url}'">
-        </div>
-    `;
-                    
-                    new bootstrap.Tooltip(info.el.querySelector('.fc-event-dot'));
-                    info.el.style.cursor = 'pointer';
-                },
-                eventContent: function(info) {
-                    // Kosongkan konten default
-                    return { html: '' };
-                },
-                headerToolbar: {
-                    left: 'prev',
-                    center: 'title',
-                    right: 'today,next'
-                }
-            });
-            calendar.render();
-        }
-    });
+    window.calendarData = {
+        events: {!! json_encode($events) !!},
+        routeUrl: "{{ route('daily.schedule', 'PLACEHOLDER') }}"
+    };
 </script>
+@vite('resources/js/calendar.js')
 @endpush
 @endsection

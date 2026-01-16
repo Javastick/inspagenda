@@ -69,42 +69,5 @@
     </div>
 </div>
 
-<style>
-    .schedule-card {
-        transition: transform 0.2s, box-shadow 0.2s;
-        border-left: 3px solid transparent;
-    }
-    
-    .schedule-card:hover {
-        transform: translateY(-3px);
-        border-left-color: #0d6efd;
-    }
-    
-    .timeline-line {
-        width: 3px;
-        height: 100%;
-        min-height: 80px;
-        background: #0d6efd;
-        border-radius: 3px;
-    }
-    
-    .hover-shadow {
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-    
-    .hover-shadow:hover {
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    
-    @media (max-width: 576px) {
-        .schedule-card .col-auto {
-            display: none;
-        }
-        
-        .schedule-card {
-            border-left: none !important;
-            border-top: 3px solid #0d6efd;
-        }
-    }
-</style>
+
 @endsection
