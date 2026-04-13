@@ -38,7 +38,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
         <div class="container d-flex">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/">
                 <div class="brand-icon">
                     <i class="fas fa-calendar-alt"></i>
                 </div>
