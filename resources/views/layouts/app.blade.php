@@ -2,9 +2,15 @@
 <html lang="en">
 
 <head>
+
+
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Inspagenda')</title>
+    <title>@yield('title', 'onSchedule')</title>
 
     <!-- Favicon untuk browser tab -->
     <link rel="icon" type="image/png" href="{{ asset('logo/logo192.png') }}" sizes="192x192">
@@ -30,14 +36,23 @@
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid d-flex justify-content-center">
-            <a class="navbar-brand" href="/">Inspagenda</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+        <div class="container d-flex">
+            <a class="navbar-brand" href="#">
+                <div class="brand-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                OnSchedule
+            </a>
+            <a  href="{{ route('admin') }}" class="btn btn-outline-custom btn-sm ms-auto">
+                <i class="far fa-user"></i>
+                Login Admin
+            </a>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <div class="container-fluid px-0">
+    <div class="container-fluid px-0 d-flex flex-column">
         @yield('content') <!-- Bagian konten halaman akan diisi di sini -->
     </div>
 

@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\InviteMail;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -30,11 +30,11 @@ class DatabaseSeeder extends Seeder
         ]);
         InviteMail::create([
             'sender' => 'inspektorat Daerah',
-        'masuk' => '2025-02-12',
-        'hari' =>  '2025-02-13 10:30:00',
-        'kegiatan' => 'Undangan Bintal',
-        'tempat' => 'Kantor Inspektorat Daerah',
-        'keterangan' => 'Pembahasan terkait bintal',//nullable
+            'masuk' => '2025-02-12',
+            'hari' => '2025-02-13 10:30:00',
+            'kegiatan' => 'Undangan Bintal',
+            'tempat' => 'Kantor Inspektorat Daerah',
+            'keterangan' => 'Pembahasan terkait bintal', // nullable
         ]);
         InviteMail::create([
             'sender' => 'Dinas Pendidikan',
@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
             'tempat' => 'Aula Dinas Pendidikan',
             'keterangan' => 'Pembahasan kurikulum baru',
         ]);
-        
+
         InviteMail::create([
             'sender' => 'Badan Kepegawaian Daerah',
             'masuk' => '2025-02-12',
@@ -53,7 +53,7 @@ class DatabaseSeeder extends Seeder
             'tempat' => 'Gedung Serba Guna',
             'keterangan' => 'Penjelasan regulasi baru bagi ASN',
         ]);
-        
+
         InviteMail::create([
             'sender' => 'Dinas Kesehatan',
             'masuk' => '2025-02-12',
@@ -62,7 +62,7 @@ class DatabaseSeeder extends Seeder
             'tempat' => 'Hotel Grand Brebes',
             'keterangan' => 'Diskusi kesehatan preventif',
         ]);
-        
+
         InviteMail::create([
             'sender' => 'Bappeda',
             'masuk' => '2025-02-12',
@@ -71,7 +71,7 @@ class DatabaseSeeder extends Seeder
             'tempat' => 'Ruang Rapat Bappeda',
             'keterangan' => 'Strategi pembangunan daerah',
         ]);
-        
+
         InviteMail::create([
             'sender' => 'KPU Kabupaten',
             'masuk' => '2025-02-12',
@@ -80,7 +80,7 @@ class DatabaseSeeder extends Seeder
             'tempat' => 'Kantor KPU',
             'keterangan' => null,
         ]);
-        
+
         InviteMail::create([
             'sender' => 'Dinas Pariwisata',
             'masuk' => '2025-02-12',
@@ -89,7 +89,7 @@ class DatabaseSeeder extends Seeder
             'tempat' => 'Gedung Wisata',
             'keterangan' => 'Strategi meningkatkan kunjungan',
         ]);
-        
+
         InviteMail::create([
             'sender' => 'Badan Penanggulangan Bencana Daerah',
             'masuk' => '2025-02-12',
@@ -98,7 +98,7 @@ class DatabaseSeeder extends Seeder
             'tempat' => 'Lapangan BPBD',
             'keterangan' => 'Pelatihan mitigasi bencana',
         ]);
-        
+
         InviteMail::create([
             'sender' => 'Dinas Sosial',
             'masuk' => '2025-02-12',
@@ -107,7 +107,7 @@ class DatabaseSeeder extends Seeder
             'tempat' => 'Kantor Dinsos',
             'keterangan' => null,
         ]);
-        
+
         InviteMail::create([
             'sender' => 'Polres Brebes',
             'masuk' => '2025-02-12',
@@ -116,7 +116,7 @@ class DatabaseSeeder extends Seeder
             'tempat' => 'Markas Polres',
             'keterangan' => 'Evaluasi keamanan wilayah',
         ]);
-        
+
         InviteMail::create([
             'sender' => 'DPRD Kabupaten',
             'masuk' => '2025-02-12',
@@ -125,6 +125,6 @@ class DatabaseSeeder extends Seeder
             'tempat' => 'Gedung DPRD',
             'keterangan' => 'Pembahasan rancangan peraturan daerah',
         ]);
-        
+
     }
 }

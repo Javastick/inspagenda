@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
-use App\Http\Middleware\AdminAuthMiddleware;
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,7 +14,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 // Route::get('/event/{id}', [HomeController::class, 'event'])->name('event.detail');
 Route::get('/events/{id}', [HomeController::class, 'show'])->name('events.show');
 Route::get('/daily-schedule/{date}', [HomeController::class, 'daily'])->name('daily.schedule');
-    
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
     Route::post('/store', [AdminController::class, 'store'])->name('admin.store');

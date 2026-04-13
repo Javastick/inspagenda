@@ -7,7 +7,7 @@
     <!-- Jadwal Hari Ini dan Jadwal Berikutnya -->
     <div class="schedule-container">
         <!-- Jadwal Hari Ini -->
-        <div class="card mb-4">
+        <div class="card mb-4 h-50">
             <div class="card-header bg-primary text-white">
                 <h5 class="card-title mb-0">📅 Jadwal Hari Ini</h5>
                 <div id="today">{{ now()->translatedFormat('l, d F Y') }}</div>
@@ -36,7 +36,7 @@
 
         <!-- Jadwal Berikutnya -->
         <div class="card">
-            <div class="card-header bg-success text-white">
+            <div class="card-header bg-success text-white h-50">
                 <h5 class="card-title mb-0">📌 Jadwal Berikutnya</h5>
             </div>
             <div class="card-body p-0">

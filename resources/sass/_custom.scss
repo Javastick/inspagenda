@@ -1,29 +1,201 @@
+:root {
+  --primary-color: #2196f3;
+  --secondary-color: #00bcd4;
+  --text-dark: #2c3e50;
+  --text-light: #7f8c8d;
+}
+
 body {
-    background: #f8f9fa;
-    font-family: "Segoe UI", sans-serif;
-    overflow-x: hidden;
-    /* Mencegah horizontal scroll */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  // background-color: #0071e2;
+  min-height: 100vh;
 }
 
 .navbar {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 12px;
 }
 
 .navbar-brand {
-    font-weight: bold;
-    color: white !important;
+  font-weight: 600;
+  color: var(--text-dark) !important;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.card {
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    width: 100%;
-    /* Pastikan card tidak melebihi lebar parent */
+.brand-icon {
+  background: var(--primary-color);
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.card:hover {
-    transform: translateY(-5px);
+.hero-section {
+  padding: 80px 0;
+  min-height: 40vh;
+  display: flex;
+  align-items: center;
+}
+
+.badge-info {
+  background-color: #e3f2fd;
+  color: var(--primary-color);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-description {
+  color: var(--text-light);
+  font-size: 1.1rem;
+  margin-bottom: 32px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-primary-custom {
+  background: var(--primary-color);
+  color: white;
+  padding: 12px 32px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 500;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary-custom:hover {
+  background: #1976d2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+.btn-outline-custom {
+  background: white;
+  color: var(--text-dark);
+  padding: 12px 32px;
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+  font-weight: 500;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-outline-custom:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.features-section {
+  padding: 60px 0;
+}
+
+.feature-card {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  height: 100%;
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s;
+}
+
+.feature-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+.feature-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.feature-icon.blue {
+  background: #e3f2fd;
+  color: var(--primary-color);
+}
+
+.feature-icon.green {
+  background: #e8f5e9;
+  color: #4caf50;
+}
+
+.feature-icon.purple {
+  background: #f3e5f5;
+  color: #9c27b0;
+}
+
+.feature-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 12px;
+}
+
+.feature-description {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-section {
+    padding: 70px 0;
+  }
+
+  .features-section {
+    display: none;
+  }
+
+  .btn-primary-custom,
+  .btn-outline-custom {
+    // width: 100%;
+    justify-content: center;
+    // margin-bottom: 12px;
+    padding: 8px;
+  }
 }
